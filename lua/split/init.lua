@@ -120,6 +120,10 @@ function M.setup(config)
         -- local vvar = vim.api.nvim_get_vvar
 
         for keymap, opts in pairs(cfg.keymaps) do
+            if not opts.enabled then
+                goto continue
+            end
+
             if opts.operator_pending then
                 vim.keymap.set(
                     { "n", "x" }, keymap,
@@ -135,6 +139,7 @@ function M.setup(config)
                     { desc = "Split text on " .. opts.pattern }
                 )
             end
+            ::continue::
         end
 
     end
